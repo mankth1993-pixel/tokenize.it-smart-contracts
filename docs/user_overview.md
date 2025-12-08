@@ -65,7 +65,7 @@ After tokens have been issued through primary market offerings (Crowdinvesting o
 
 **Key differences from primary market contracts:**
 
-- **Primary market** (Crowdinvesting, PrivateOffer): Mints new tokens directly from the company to investors
+- **Primary market** (Crowdinvesting, PrivateOffer): Mints new tokens or transfers existing tokens directly from the company to investors
 - **Secondary market** (TokenSwap): Transfers existing tokens between investors
 
 **Use cases:**

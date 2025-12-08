@@ -14,7 +14,9 @@ Tokenize.it will collect fees from it's users. There are 3 types of users and 2 
   1.  currencies (WETH, WBTC, USDC, EUROC, EURe)
   2.  tokens of companies
 
-Fees are collected during investments and token minting. They are paid both in the investment currency (-> see `crowdinvestingFee()` and `privateOfferFee()` in [FeeSettings.sol](../contracts/FeeSettings.sol)) and the token minted (-> see `tokenFee` in [FeeSettings.sol](../contracts/FeeSettings.sol)).
+Currency fees are collected during investments and token swaps (-> see `crowdinvestingFee()` and `privateOfferFee()` in [FeeSettings.sol](../contracts/FeeSettings.sol)).
+
+Token fees are deducted during token minting (-> see `tokenFee` in [FeeSettings.sol](../contracts/FeeSettings.sol)).
 
 **Example**:
 Investor buys X tokens for Y USDC through the Crowdinvesting contract.
