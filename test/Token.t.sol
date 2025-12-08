@@ -402,8 +402,8 @@ contract tokenTest is Test {
     }
 
     /**
-    @notice test if the minter can mint exactly the amount of tokens that is allowed, but in multiple steps
-    */
+     *  test if the minter can mint exactly the amount of tokens that is allowed, but in multiple steps
+     */
     function testMintAgain(uint256 totalMintAmount, uint256 steps) public {
         vm.assume(totalMintAmount <= UINT256_MAX / FeeSettings(address(token.feeSettings())).FEE_DENOMINATOR()); // avoid overflow
         //vm.assume(steps < 200);
@@ -483,8 +483,8 @@ contract tokenTest is Test {
         assertTrue(token.balanceOf(pauser) == 0, "pauser balance is wrong");
     }
 
-    /*
-    Burn with requirements
+    /**
+     * Burn with requirements
      */
     function testBurnWithRequirements(uint256 x) public {
         vm.assume(x <= UINT256_MAX / FeeSettings(address(token.feeSettings())).FEE_DENOMINATOR()); // avoid overflow
