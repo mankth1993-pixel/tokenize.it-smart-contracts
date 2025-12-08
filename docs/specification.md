@@ -147,3 +147,41 @@ The following statements about the smart contracts should always be true
 - Stopping a vesting plan and revoking a commitment to a vesting plan are equivalent with respect to the token amount the beneficiary can release and the time the beneficiary can release them.
 - A beneficiary can never mint or withdraw more tokens than the allocation of the vesting plan.
 - Third parties can not mint or withdraw tokens from a vesting plan.
+
+## TokenSwap.sol
+
+- One TokenSwap contract represents one limit order to buy or sell tokens at a fixed price.
+- The price is set at contract creation and can be changed by the owner.
+- The volume is controlled by the allowance granted, which can be increased or decreased by the owner.
+- The direction (buy or sell) is determined by setting the holder and receiver addresses.
+- The holder address must hold the tokens to be sold when the contract is used as a sell order.
+- The holder address must hold the currency to be paid when the contract is used as a buy order.
+- The receiver address will receive the tokens to be bought when the contract is used as a buy order.
+- The receiver address will receive the currency to be paid when the contract is used as a sell order.
+- The receiver address can be equal to the holder address.
+- The owner can update the receiver address.
+- The owner can update the holder address.
+- The owner can update the token price.
+- Token is set at contract creation and can not be changed.
+- Currency is set at contract creation and can not be changed.
+- Currency must have the TRUSTED_CURRENCY attribute on the token's AllowList.
+- The contract can be paused and unpausedby the owner.
+- No new trades can be made while the contract is paused.
+- Buying and selling can be disabled by removing the allowance.
+- The contract can be transferred to a new owner by the owner.
+- The counterparty decides how many tokens to buy or sell.
+- There is no minimum amount of tokens to buy or sell.
+- The limit order can be executed partially or completely.
+- As long as an allowance remains, the limit order can be executed repeatedly.
+- The maximum amount of tokens to buy or sell is determined by the allowance granted.
+- Fees are deducted from the currency transferred during the swap.
+- Fee amount is determined by the token's fee settings.
+- Fee receiver is determined by the token's fee settings.
+- No fees are deducted from the tokens transferred during the swap.
+- The buyer calling the buy function will pay no more than maxCurrencyAmount, protecting them from frontrunning or other unexpected influences.
+- The seller calling the sell function will receive no less than minCurrencyAmount, protecting them from frontrunning or other unexpected influences.
+- The buy function rounds up the currency amount, protecting the owner from loss.
+- The sell function rounds down the currency amount, protecting the owner from loss.
+- All functions can be called directly or as meta transaction using ERC2771.
+- Calling a function directly or through ERC2771 yield equivalent results given equivalent inputs.
+- It is possible to create a buy AND sell order using one TokenSwap contract, by granting allowances in token and currency. This is not an intended use case as it doesn't benefit the owner.
