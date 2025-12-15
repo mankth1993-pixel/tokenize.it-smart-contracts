@@ -180,17 +180,26 @@ Where `TokenSwapInitializerArguments` contains:
 
 **Updating parameters:**
 
-The owner can pause the contract and update:
+The owner can update:
 
-- Currency and price: `setCurrencyAndTokenPrice(newCurrency, newPrice)`
+- Price: `setTokenPrice(newPrice)`
 - Receiver: `setReceiver(newReceiver)`
 - Holder: `setHolder(newHolder)`
+- Outside the TokenContract:
+  - token allowance
+  - currency allowance
 
-After making changes, the owner must unpause the contract by calling `unpause()`.
+The owner can pause the contract using `pause()` to disable swaps, and unpause it using `unpause()` to re-enable swaps.
 
 **Fees:**
 
-TokenSwap charges crowdinvesting fees according to the FeeSettings contract, similar to primary market offerings.
+TokenSwap charges crowdinvesting fees according to the FeeSettings contract, similar to primary market offerings. Fees are only deducted from the currency transferred, not the token.
+
+**Expiration:**
+
+No dedicated order expiration is built into the TokenSwap contract. Incomplete orders can be disabled by pausing the contract or removing the allowance. The platform can help the user automate such expiration by storing a signed ERC2612 permit meta-transaction setting the token or currency allowance to 0 and executing it once an expiration date has passed (or similar prerequisites are met).
+
+This offchain-approach keeps the contract slim and allows for high flexibility.
 
 # Employee participation with or without vesting
 
