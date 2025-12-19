@@ -120,6 +120,18 @@ contract FeeSettings is
     event ChangeProposed(Fees proposal);
 
     /**
+     * @notice A manager has been added
+     * @param manager The address of the manager that was added
+     */
+    event ManagerAdded(address indexed manager);
+
+    /**
+     * @notice A manager has been removed
+     * @param manager The address of the manager that was removed
+     */
+    event ManagerRemoved(address indexed manager);
+
+    /**
      * This constructor deploys a logic contract with no owner, that can be used for cloning.
      * @param _trustedForwarder The trusted forwarder contract to use
      */
@@ -164,6 +176,7 @@ contract FeeSettings is
      */
     function addManager(address _manager) external onlyOwner {
         managers[_manager] = true;
+        emit ManagerAdded(_manager);
     }
 
     /**
@@ -172,6 +185,7 @@ contract FeeSettings is
      */
     function removeManager(address _manager) external onlyOwner {
         delete managers[_manager];
+        emit ManagerRemoved(_manager);
     }
 
     /**
