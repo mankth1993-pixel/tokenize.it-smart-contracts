@@ -17,7 +17,6 @@ contract TokenSwapTest is Test {
     event TokenPriceChanged(uint256);
     event TokensBought(address indexed buyer, uint256 tokenAmount, uint256 currencyAmount);
     event TokensSold(address indexed seller, uint256 tokenAmount, uint256 currencyAmount);
-    event HolderChanged(address);
 
     TokenSwapCloneFactory factory;
     TokenSwap tokenSwap;
@@ -749,20 +748,6 @@ contract TokenSwapTest is Test {
         vm.prank(owner);
         vm.expectRevert("_tokenPrice needs to be a non-zero amount");
         tokenSwap.setTokenPrice(0);
-    }
-
-    function testUpdateHolder(address newHolder) public {
-        vm.assume(newHolder != address(0));
-        assertTrue(tokenSwap.holder() == holder);
-        vm.prank(owner);
-        vm.expectEmit(true, true, true, true, address(tokenSwap));
-        emit HolderChanged(newHolder);
-        tokenSwap.setHolder(newHolder);
-        assertTrue(tokenSwap.holder() == newHolder);
-
-        vm.prank(owner);
-        vm.expectRevert("holder can not be zero address");
-        tokenSwap.setHolder(address(0));
     }
 
     function testPauseUnpause() public {

@@ -7,6 +7,8 @@ import "../contracts/factories/AllowListCloneFactory.sol";
 
 contract AllowListTest is Test {
     event Set(address indexed key, uint256 value);
+    event BatchSet(address[] addrs, uint256[] attributes);
+    event BatchRemove(address[] addrs);
 
     AllowList list;
     address trustedForwarder = address(1);
@@ -106,6 +108,8 @@ contract AllowListTest is Test {
         attributes[0] = attributesX;
         attributes[1] = attributesY;
         vm.prank(owner);
+        vm.expectEmit(false, false, false, true, address(list));
+        emit BatchSet(addresses, attributes);
         list.set(addresses, attributes);
         assertTrue(list.map(address(x)) == attributesX, "x not set");
         assertTrue(list.map(address(y)) == attributesY, "y not set");
@@ -170,6 +174,8 @@ contract AllowListTest is Test {
 
         // now remove both
         vm.prank(owner);
+        vm.expectEmit(false, false, false, true, address(list));
+        emit BatchRemove(addresses);
         list.remove(addresses);
         assertTrue(list.map(address(x)) == 0, "x not removed");
         assertTrue(list.map(address(y)) == 0, "y not removed");
