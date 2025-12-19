@@ -63,8 +63,6 @@ contract TokenSwap is ERC2771ContextUpgradeable, OwnableUpgradeable, PausableUpg
     /// @notice receiver has been changed to `newReceiver`
     /// @param newReceiver address that receives the payment (in currency/tokens) when tokens are bought/sold
     event ReceiverChanged(address indexed newReceiver);
-    /// @notice holder has been changed to `holder`
-    event HolderChanged(address holder);
 
     /// @notice Price changed.
     /// @param newTokenPrice new price of a token, expressed as amount of bits of currency per main unit token (e.g.: 2 USDC (6 decimals) per TOK (18 decimals) => price = 2*10^6 ).
@@ -213,16 +211,6 @@ contract TokenSwap is ERC2771ContextUpgradeable, OwnableUpgradeable, PausableUpg
         require(_tokenPrice != 0, "_tokenPrice needs to be a non-zero amount");
         tokenPrice = _tokenPrice;
         emit TokenPriceChanged(_tokenPrice);
-    }
-
-    /**
-     * @notice change the holder to '_holder`
-     * @param _holder new holder
-     */
-    function setHolder(address _holder) external onlyOwner {
-        require(_holder != address(0), "holder can not be zero address");
-        holder = _holder;
-        emit HolderChanged(_holder);
     }
 
     /**

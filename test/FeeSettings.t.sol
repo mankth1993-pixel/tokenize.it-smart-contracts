@@ -18,6 +18,8 @@ contract FeeSettingsTest is Test {
         address indexed newPrivateOfferFeeCollector
     );
     event ChangeProposed(Fees proposal);
+    event ManagerAdded(address indexed manager);
+    event ManagerRemoved(address indexed manager);
 
     FeeSettings feeSettings;
     FeeSettingsCloneFactory feeSettingsCloneFactory;
@@ -745,6 +747,8 @@ contract FeeSettingsTest is Test {
         assertEq(feeSettings.managers(_manager), false, "Should not be manager yet");
 
         vm.prank(admin);
+        vm.expectEmit(true, true, true, true, address(feeSettings));
+        emit ManagerAdded(_manager);
         feeSettings.addManager(_manager);
 
         assertEq(feeSettings.managers(_manager), true, "Manager should be added");
@@ -770,6 +774,8 @@ contract FeeSettingsTest is Test {
         assertEq(feeSettings.managers(_manager), true, "Should be manager");
 
         vm.prank(admin);
+        vm.expectEmit(true, true, true, true, address(feeSettings));
+        emit ManagerRemoved(_manager);
         feeSettings.removeManager(_manager);
 
         assertEq(feeSettings.managers(_manager), false, "Manager should be removed");

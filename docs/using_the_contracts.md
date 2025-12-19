@@ -184,7 +184,6 @@ The owner can update:
 
 - Price: `setTokenPrice(newPrice)`
 - Receiver: `setReceiver(newReceiver)`
-- Holder: `setHolder(newHolder)`
 - Outside the TokenContract:
   - token allowance
   - currency allowance
