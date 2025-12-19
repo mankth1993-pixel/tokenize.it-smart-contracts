@@ -61,6 +61,19 @@ contract AllowList is Ownable2StepUpgradeable, ERC2771ContextUpgradeable {
     event Set(address indexed _addr, uint256 _attributes);
 
     /**
+     * @notice Batch of addresses have been set with their attributes
+     * @param addrs array of addresses that were set
+     * @param attributes array of attributes that were set for each address
+     */
+    event BatchSet(address[] addrs, uint256[] attributes);
+
+    /**
+     * @notice Batch of addresses have been removed from the allowList
+     * @param addrs array of addresses that were removed
+     */
+    event BatchRemove(address[] addrs);
+
+    /**
      * @notice Creates a new AllowList contract without owner that be used for cloning.
      * @param _trustedForwarder the trusted forwarder (ERC2771) can not be changed, but is checked for security
      */
@@ -131,6 +144,7 @@ contract AllowList is Ownable2StepUpgradeable, ERC2771ContextUpgradeable {
         for (uint256 i = 0; i < _addr.length; i++) {
             _set(_addr[i], _attributes[i]);
         }
+        emit BatchSet(_addr, _attributes);
     }
 
     /**
@@ -151,6 +165,7 @@ contract AllowList is Ownable2StepUpgradeable, ERC2771ContextUpgradeable {
         for (uint256 i = 0; i < _addr.length; i++) {
             remove(_addr[i]);
         }
+        emit BatchRemove(_addr);
     }
 
     /**
