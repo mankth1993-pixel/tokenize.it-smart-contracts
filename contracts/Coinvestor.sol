@@ -30,7 +30,7 @@ contract Coinvestor is Ownable2StepUpgradeable {
         _token.approve(_tokenSwapCarry, amount);
     }
 
-    function withdrawToTokenAdmin(Token _token, address _admin) { // only used in case of an exit, or executing the put-option
+    function withdrawToTokenAdmin(Token _token, address _admin) onlyOwner { // only used in case of an exit, or executing the put-option
         require(_token.hasRole(DEFAULT_ADMIN_ROLE, _admin));
         _token.transfer(_admin, _token.balanceOf(address(this))); 
     }
