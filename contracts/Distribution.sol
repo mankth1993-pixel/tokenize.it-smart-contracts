@@ -12,7 +12,7 @@ import "./Coinvestor.sol";
 
 
 /**
- * @title tokenize.it Distribution
+ * @title tokenize.it-smart-contracts/Distribution
  * @author malteish, cjentzsch
  * @notice This contract implements the distribution of any proceeds (Exit, Liquidation, Dividends) based on a snapshot of Token.sol
  *    
