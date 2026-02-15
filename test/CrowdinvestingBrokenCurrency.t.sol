@@ -19,7 +19,7 @@ import "./resources/CloneCreators.sol";
  */
 contract BrokenERC677 is ERC20 {
     constructor() ERC20("BrokenToken", "BROKEN") {
-        _mint(msg.sender, 1000000 * 10**18);
+        _mint(msg.sender, 1000000 * 10 ** 18);
     }
 
     function transfer(address to, uint256 amount) public virtual override returns (bool) {
@@ -33,11 +33,7 @@ contract BrokenERC677 is ERC20 {
     }
 
     // ERC677 transferAndCall
-    function transferAndCall(
-        address _to,
-        uint256 _value,
-        bytes memory _data
-    ) public returns (bool success) {
+    function transferAndCall(address _to, uint256 _value, bytes memory _data) public returns (bool success) {
         require(_value > 0, "BrokenERC677: zero transfers not allowed");
         transfer(_to, _value);
         emit Transfer(msg.sender, _to, _value, _data);

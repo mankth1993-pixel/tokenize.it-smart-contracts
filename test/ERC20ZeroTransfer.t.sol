@@ -13,7 +13,7 @@ import "./resources/ERC20Helper.sol";
  */
 contract BrokenERC20 is ERC20 {
     constructor() ERC20("BrokenToken", "BROKEN") {
-        _mint(msg.sender, 1000000 * 10**18);
+        _mint(msg.sender, 1000000 * 10 ** 18);
     }
 
     function transfer(address to, uint256 amount) public virtual override returns (bool) {
@@ -58,8 +58,16 @@ contract ERC20ZeroTransferTest is Test {
         assertTrue(success, string.concat(tokenName, ": zero transfer should succeed"));
 
         // Verify balances unchanged
-        assertEq(token.balanceOf(sender), senderBalance, string.concat(tokenName, ": sender balance should remain unchanged"));
-        assertEq(token.balanceOf(receiver), receiverBalanceBefore, string.concat(tokenName, ": receiver balance should remain unchanged"));
+        assertEq(
+            token.balanceOf(sender),
+            senderBalance,
+            string.concat(tokenName, ": sender balance should remain unchanged")
+        );
+        assertEq(
+            token.balanceOf(receiver),
+            receiverBalanceBefore,
+            string.concat(tokenName, ": receiver balance should remain unchanged")
+        );
 
         console.log(tokenName, "zero transfer: SUCCESS");
     }
@@ -69,7 +77,7 @@ contract ERC20ZeroTransferTest is Test {
      * Tests the principle: have 0, transfer 0
      */
     function testZeroTransferFrom(IERC20 token, string memory tokenName) internal {
-        uint256 allowanceAmount = 500 * 10**18;
+        uint256 allowanceAmount = 500 * 10 ** 18;
 
         // Verify sender has no tokens (or at least get their balance) and approve spender
         uint256 senderBalance = token.balanceOf(sender);
@@ -77,7 +85,11 @@ contract ERC20ZeroTransferTest is Test {
         token.approve(spender, allowanceAmount);
 
         // Verify initial state
-        assertEq(token.allowance(sender, spender), allowanceAmount, string.concat(tokenName, ": spender should have allowance"));
+        assertEq(
+            token.allowance(sender, spender),
+            allowanceAmount,
+            string.concat(tokenName, ": spender should have allowance")
+        );
         uint256 receiverBalanceBefore = token.balanceOf(receiver);
 
         // Execute zero-value transferFrom
@@ -88,13 +100,24 @@ contract ERC20ZeroTransferTest is Test {
         assertTrue(success, string.concat(tokenName, ": zero transferFrom should succeed"));
 
         // Verify balances and allowance unchanged
-        assertEq(token.balanceOf(sender), senderBalance, string.concat(tokenName, ": sender balance should remain unchanged"));
-        assertEq(token.balanceOf(receiver), receiverBalanceBefore, string.concat(tokenName, ": receiver balance should remain unchanged"));
-        assertEq(token.allowance(sender, spender), allowanceAmount, string.concat(tokenName, ": allowance should remain unchanged"));
+        assertEq(
+            token.balanceOf(sender),
+            senderBalance,
+            string.concat(tokenName, ": sender balance should remain unchanged")
+        );
+        assertEq(
+            token.balanceOf(receiver),
+            receiverBalanceBefore,
+            string.concat(tokenName, ": receiver balance should remain unchanged")
+        );
+        assertEq(
+            token.allowance(sender, spender),
+            allowanceAmount,
+            string.concat(tokenName, ": allowance should remain unchanged")
+        );
 
         console.log(tokenName, "zero transferFrom: SUCCESS");
     }
-
 
     // Individual test functions for USDC
     function testUSDCZeroTransferMainnet() public {
@@ -172,7 +195,7 @@ contract ERC20ZeroTransferTest is Test {
 
     function testBrokenERC20ZeroTransferFromReverts() public {
         BrokenERC20 brokenToken = new BrokenERC20();
-        uint256 allowanceAmount = 500 * 10**18;
+        uint256 allowanceAmount = 500 * 10 ** 18;
 
         // Get initial balance and approve spender
         uint256 senderBalance = brokenToken.balanceOf(sender);
