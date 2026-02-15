@@ -85,7 +85,7 @@ contract Token is
      *     With requirements 0b0000000000000000000000000000000000000000000000000000000000000111, only KYCed american penguins will be allowed to send or receive tokens.
      *     With requirements 0b0000000000000000000000000000000000000000000000000000000000000000, even french hedgehogs will be allowed to send or receive tokens.
      *
-     *     The highest available four bits (remember the highest bis is reserved for the TRUSTED_CURRENCY attribute) 
+     *     The highest available four bits (remember the highest bis is reserved for the TRUSTED_CURRENCY attribute)
      *     can be defined as tiers as follows:
      *     - 0b0000000000000000000000000000000000000000000000000000000000000000 = tier 0 is required
      *     - 0b0000100000000000000000000000000000000000000000000000000000000000 = tier 1 is required
