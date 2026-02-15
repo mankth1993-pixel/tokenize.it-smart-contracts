@@ -45,36 +45,30 @@ contract ERC20ZeroTransferTest is Test {
      * @dev Helper function to test zero-value transfer for a given ERC20 token
      * Tests the principle: have 0, transfer 0
      */
-    function testZeroTransfer(IERC20 token, string memory tokenName, bool shouldRevert) internal {
+    function testZeroTransfer(IERC20 token, string memory tokenName) internal {
         // Verify sender has no tokens (or at least get their balance)
         uint256 senderBalance = token.balanceOf(sender);
         uint256 receiverBalanceBefore = token.balanceOf(receiver);
 
         // Execute zero-value transfer with zero balance
         vm.prank(sender);
-        if (shouldRevert) {
-            vm.expectRevert();
-            token.transfer(receiver, 0);
-            console.log(tokenName, "zero transfer: correctly reverted");
-        } else {
-            bool success = token.transfer(receiver, 0);
+        bool success = token.transfer(receiver, 0);
 
-            // Verify transfer succeeded
-            assertTrue(success, string.concat(tokenName, ": zero transfer should succeed"));
+        // Verify transfer succeeded
+        assertTrue(success, string.concat(tokenName, ": zero transfer should succeed"));
 
-            // Verify balances unchanged
-            assertEq(token.balanceOf(sender), senderBalance, string.concat(tokenName, ": sender balance should remain unchanged"));
-            assertEq(token.balanceOf(receiver), receiverBalanceBefore, string.concat(tokenName, ": receiver balance should remain unchanged"));
+        // Verify balances unchanged
+        assertEq(token.balanceOf(sender), senderBalance, string.concat(tokenName, ": sender balance should remain unchanged"));
+        assertEq(token.balanceOf(receiver), receiverBalanceBefore, string.concat(tokenName, ": receiver balance should remain unchanged"));
 
-            console.log(tokenName, "zero transfer: SUCCESS");
-        }
+        console.log(tokenName, "zero transfer: SUCCESS");
     }
 
     /**
      * @dev Helper function to test zero-value transferFrom for a given ERC20 token
      * Tests the principle: have 0, transfer 0
      */
-    function testZeroTransferFrom(IERC20 token, string memory tokenName, bool shouldRevert) internal {
+    function testZeroTransferFrom(IERC20 token, string memory tokenName) internal {
         uint256 allowanceAmount = 500 * 10**18;
 
         // Verify sender has no tokens (or at least get their balance) and approve spender
@@ -88,87 +82,117 @@ contract ERC20ZeroTransferTest is Test {
 
         // Execute zero-value transferFrom
         vm.prank(spender);
-        if (shouldRevert) {
-            vm.expectRevert();
-            token.transferFrom(sender, receiver, 0);
-            console.log(tokenName, "zero transferFrom: correctly reverted");
-        } else {
-            bool success = token.transferFrom(sender, receiver, 0);
+        bool success = token.transferFrom(sender, receiver, 0);
 
-            // Verify transfer succeeded
-            assertTrue(success, string.concat(tokenName, ": zero transferFrom should succeed"));
+        // Verify transfer succeeded
+        assertTrue(success, string.concat(tokenName, ": zero transferFrom should succeed"));
 
-            // Verify balances and allowance unchanged
-            assertEq(token.balanceOf(sender), senderBalance, string.concat(tokenName, ": sender balance should remain unchanged"));
-            assertEq(token.balanceOf(receiver), receiverBalanceBefore, string.concat(tokenName, ": receiver balance should remain unchanged"));
-            assertEq(token.allowance(sender, spender), allowanceAmount, string.concat(tokenName, ": allowance should remain unchanged"));
+        // Verify balances and allowance unchanged
+        assertEq(token.balanceOf(sender), senderBalance, string.concat(tokenName, ": sender balance should remain unchanged"));
+        assertEq(token.balanceOf(receiver), receiverBalanceBefore, string.concat(tokenName, ": receiver balance should remain unchanged"));
+        assertEq(token.allowance(sender, spender), allowanceAmount, string.concat(tokenName, ": allowance should remain unchanged"));
 
-            console.log(tokenName, "zero transferFrom: SUCCESS");
-        }
+        console.log(tokenName, "zero transferFrom: SUCCESS");
     }
+
 
     // Individual test functions for USDC
     function testUSDCZeroTransferMainnet() public {
-        testZeroTransfer(USDC, "USDC", false);
+        testZeroTransfer(USDC, "USDC");
     }
 
     function testUSDCZeroTransferFromMainnet() public {
-        testZeroTransferFrom(USDC, "USDC", false);
+        testZeroTransferFrom(USDC, "USDC");
     }
 
     // Individual test functions for WETH
     function testWETHZeroTransferMainnet() public {
-        testZeroTransfer(WETH, "WETH", false);
+        testZeroTransfer(WETH, "WETH");
     }
 
     function testWETHZeroTransferFromMainnet() public {
-        testZeroTransferFrom(WETH, "WETH", false);
+        testZeroTransferFrom(WETH, "WETH");
     }
 
     // Individual test functions for WBTC
     function testWBTCZeroTransferMainnet() public {
-        testZeroTransfer(WBTC, "WBTC", false);
+        testZeroTransfer(WBTC, "WBTC");
     }
 
     function testWBTCZeroTransferFromMainnet() public {
-        testZeroTransferFrom(WBTC, "WBTC", false);
+        testZeroTransferFrom(WBTC, "WBTC");
     }
 
     // Individual test functions for EUROC
     function testEUROCZeroTransferMainnet() public {
-        testZeroTransfer(EUROC, "EUROC", false);
+        testZeroTransfer(EUROC, "EUROC");
     }
 
     function testEUROCZeroTransferFromMainnet() public {
-        testZeroTransferFrom(EUROC, "EUROC", false);
+        testZeroTransferFrom(EUROC, "EUROC");
     }
 
     // Individual test functions for DAI
     function testDAIZeroTransferMainnet() public {
-        testZeroTransfer(DAI, "DAI", false);
+        testZeroTransfer(DAI, "DAI");
     }
 
     function testDAIZeroTransferFromMainnet() public {
-        testZeroTransferFrom(DAI, "DAI", false);
+        testZeroTransferFrom(DAI, "DAI");
     }
 
     // Individual test functions for EURe
     function testEUReZeroTransferMainnet() public {
-        testZeroTransfer(EURe, "EURe", false);
+        testZeroTransfer(EURe, "EURe");
     }
 
     function testEUReZeroTransferFromMainnet() public {
-        testZeroTransferFrom(EURe, "EURe", false);
+        testZeroTransferFrom(EURe, "EURe");
     }
 
     // Negative tests with broken ERC20 to verify our test infrastructure works
     function testBrokenERC20ZeroTransferReverts() public {
         BrokenERC20 brokenToken = new BrokenERC20();
-        testZeroTransfer(brokenToken, "BrokenERC20", true);
+
+        // Get initial balances
+        uint256 senderBalance = brokenToken.balanceOf(sender);
+        uint256 receiverBalanceBefore = brokenToken.balanceOf(receiver);
+
+        // Execute zero-value transfer and expect revert
+        vm.prank(sender);
+        vm.expectRevert("BrokenERC20: zero transfers not allowed");
+        brokenToken.transfer(receiver, 0);
+
+        // Verify balances unchanged after revert
+        assertEq(brokenToken.balanceOf(sender), senderBalance, "Sender balance should be unchanged");
+        assertEq(brokenToken.balanceOf(receiver), receiverBalanceBefore, "Receiver balance should be unchanged");
+
+        console.log("BrokenERC20 zero transfer: correctly reverted");
     }
 
     function testBrokenERC20ZeroTransferFromReverts() public {
         BrokenERC20 brokenToken = new BrokenERC20();
-        testZeroTransferFrom(brokenToken, "BrokenERC20", true);
+        uint256 allowanceAmount = 500 * 10**18;
+
+        // Get initial balance and approve spender
+        uint256 senderBalance = brokenToken.balanceOf(sender);
+        vm.prank(sender);
+        brokenToken.approve(spender, allowanceAmount);
+
+        // Verify initial state
+        assertEq(brokenToken.allowance(sender, spender), allowanceAmount, "Spender should have allowance");
+        uint256 receiverBalanceBefore = brokenToken.balanceOf(receiver);
+
+        // Execute zero-value transferFrom and expect revert
+        vm.prank(spender);
+        vm.expectRevert("BrokenERC20: zero transfers not allowed");
+        brokenToken.transferFrom(sender, receiver, 0);
+
+        // Verify balances and allowance unchanged after revert
+        assertEq(brokenToken.balanceOf(sender), senderBalance, "Sender balance should be unchanged");
+        assertEq(brokenToken.balanceOf(receiver), receiverBalanceBefore, "Receiver balance should be unchanged");
+        assertEq(brokenToken.allowance(sender, spender), allowanceAmount, "Allowance should be unchanged");
+
+        console.log("BrokenERC20 zero transferFrom: correctly reverted");
     }
 }
