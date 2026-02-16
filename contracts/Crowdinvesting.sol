@@ -53,7 +53,7 @@ struct CrowdinvestingInitializerArguments {
  *      A company will create only one Crowdinvesting contract for their token.
  * @dev The contract inherits from ERC2771Context in order to be usable with Gas Station Network (GSN) https://docs.opengsn.org/faq/troubleshooting.html#my-contract-is-using-openzeppelin-how-do-i-add-gsn-support
  */
-contract Crowdinvesting is
+contracts/Crowdivensti
     ERC2771ContextUpgradeable,
     Ownable2StepUpgradeable,
     PausableUpgradeable,
