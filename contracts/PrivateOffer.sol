@@ -47,7 +47,7 @@ struct PrivateOfferArguments {
  *     Because all of the execution logic is in the constructor, the deployment of the PrivateOffer contract is the last step. During the deployment, the newly
  *     minted tokens will be transferred to the buyer and the currency will be transferred to the company's receiver address.
  */
-contract PrivateOffer {
+contracts/PrivateOffer {
     using SafeERC20 for IERC20;
 
     /**
