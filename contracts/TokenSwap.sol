@@ -90,7 +90,7 @@ contract Crowdinvesting is
     /// currency used to pay for the token mint. Must be ERC20, so ether can only be used as wrapped ether (WETH)
     IERC20 public currency;
     /// token to be minted
-    Token public token;
+    Token public token
     /// holder. If set, tokens/currency will be transferred from this address. If set to address(0), tokens will be minted from the token contract.
     address public holder;
 
