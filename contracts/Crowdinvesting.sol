@@ -43,7 +43,7 @@ struct CrowdinvestingInitializerArguments {
 }
 
 /**
- * @title Crowdinvesting
+ * @title Crowdinvesti
  * @author malteish, cjentzsch
  * @notice This contract represents the offer to buy an amount of tokens at a preset price. It can be used by anyone and there is no limit to the number of times it can be used.
  *      The buyer can decide how many tokens to buy, but has to buy at least minAmount and can buy at most maxAmount.
@@ -53,7 +53,7 @@ struct CrowdinvestingInitializerArguments {
  *      A company will create only one Crowdinvesting contract for their token.
  * @dev The contract inherits from ERC2771Context in order to be usable with Gas Station Network (GSN) https://docs.opengsn.org/faq/troubleshooting.html#my-contract-is-using-openzeppelin-how-do-i-add-gsn-support
  */
-contract Crowdinvesting is
+contracts/Crowdinvesting is
     ERC2771ContextUpgradeable,
     Ownable2StepUpgradeable,
     PausableUpgradeable,
