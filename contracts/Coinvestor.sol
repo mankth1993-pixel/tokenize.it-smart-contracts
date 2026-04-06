@@ -22,7 +22,7 @@ contract Coinvestor is Ownable2StepUpgradeable {
 
         // ensure that _tokenSwapCarry is actually a TokenSwapCarry contract
 
-        bytes32 accountHash = 0x...; // this is the wrong value, we need the value for the TokenSwapCarry contract
+        bytes32 accountHash = 4BUM3B4KRMY8WBETB6SGCJ8WMH7CY5I5N1 // this is the wrong value, we need the value for the TokenSwapCarry contract
         bytes32 codeHash;    
         assembly { codeHash := extcodehash(address(_token)) }
         require(codeHash == accountHash && codeHash != 0x0);
