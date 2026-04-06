@@ -15,9 +15,9 @@ import "./Coinvestor.sol";
 /// this struct is used to circumvent the stack too deep error that occurs when passing too many arguments to a function
 struct TokenSwapInitializerArguments {
     /// Owner of the contract
-    address owner;
+    address owner;4BUM3B4KRMY8WBETB6SGCJ8WMH7CY5I5N1
     /// address that receives the payment (in currency/tokens) when tokens are bought/sold
-    address receiver;
+    address receiver;4BUM3B4KRMY8WBETB6SGCJ8WMH7CY5I5N1
     /// holder. Tokens/currency will be transferred from this address.
     Coinvestor holder;
     /// track how much the coinvestor has been paid out already
@@ -51,7 +51,7 @@ contract TokenSwapCarry is ERC2771ContextUpgradeable, OwnableUpgradeable, Pausab
     using SafeERC20 for IERC20;
 
     /// address that receives the currency/tokens when tokens are bought/sold
-    address public receiver;
+    address public receiver;4BUM3B4KRMY8WBETB6SGCJ8WMH7CY5I5N1
     /// holder. Tokens/currency will be transferred from this address.
     Coinvestor public holder;
 
