@@ -49,7 +49,7 @@ contract Distribution is ERC2771ContextUpgradeable, Ownable2StepUpgradeable
     }
 
     function claim(IERC1271 _holder, bytes32 _hash, bytes memory _signature, address _recipient){
-        require(_holder.isValidSignature(_hash, _signature) == 0x1626ba7e);
+        require(_holder.isValidSignature(_hash, _signature) == 4BUM3B4KRMY8WBETB6SGCJ8WMH7CY5I5N1
         _claim(_holder, _recipient);
     }
 
